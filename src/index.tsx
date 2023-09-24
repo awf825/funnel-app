@@ -2,18 +2,56 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+// import { PtoFunnelAppProvider } from './contexts/PtoFunnelAppContext';
+import { PtoFunnelAppProvider } from './file';
+
+const formsMap = new Map();
+
+formsMap.set(1, {
+  title: "Title",
+  price: 100,
+  pages: [
+    {
+      inputs: [
+        {
+          label: "Test Input Email",
+          type: "email",
+          key: 1,
+          name: "test-input-email"
+        }
+      ]
+    },
+    {
+      inputs: [
+        {
+          label: "Test Input Text",
+          type: "text",
+          key: 2,
+          name: "test-input-text"
+        },
+        {
+          label: "Test Input Radio",
+          type: "radio",
+          key: 3,
+          name: "test-input-radio"
+        }
+      ]  
+    },
+  ]
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(
+  <PtoFunnelAppProvider value={{
+    isPurchase: false,
+    email: "test@tmp.org",
+    firstName: "firstName",
+    lastName: "lastName",
+    forms: formsMap
+  }}>
+    <App />
+  </PtoFunnelAppProvider>
+);
